@@ -1,0 +1,167 @@
+﻿@model IEnumerable<_0731Project.Models.WareHouseStorageView>
+
+@{
+    ViewBag.Title = "MachineEdit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-12">
+        <!--    Hover Rows  -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2> <span class="fa fa-1x fa-truck">倉庫管理</span></h2>
+            </div>
+        </div>
+    </div>
+    @*<div class="col-md-12">
+            <a href="#" class="btn-adn"><i class="fa fa-5x fa-plus"></i></a>
+        </div>*@
+    @*第一欄*@
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-hover " id="edit1">
+                        <thead>
+                            <tr>
+                                <th>倉庫編號</th>
+                                <th>貨架編號</th>
+                                <th>商品名稱</th>
+                                <th>商品數量</th>
+                                <th>補貨人員</th>
+                                <th>最後補貨時間</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ var x = Model.Count()/2;}
+                            @foreach (var item in Model)
+                            {
+                                
+                                if (Convert.ToInt32(item.Rack) <= x)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.WareHouseId
+                                        </td>
+                                        <td>
+                                            @item.Rack
+                                        </td>
+                                        <td>
+                                            @item.ItemName
+                                        </td>
+                                        <td contenteditable="true" id="@("rc"+x)">
+                                            @item.Amount
+                                        </td>
+                                        <td>
+                                            @item.EmployeeName
+                                        </td>
+                                        <td>
+                                            @item.UpdateTime
+                                        </td>
+                                    </tr>
+                                    
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*第二欄*@
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-hover " id="edit2">
+                        <thead>
+                            <tr>
+                                <th>機臺編號</th>
+                                <th>貨架編號</th>
+                                <th>商品名稱</th>
+                                <th>商品數量</th>
+                                <th>補貨人員</th>
+                                <th>最後補貨時間</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                if (Convert.ToInt32(item.Rack) > x && Convert.ToInt32(item.Rack) <= 20)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.WareHouseId
+                                        </td>
+                                        <td>
+                                            @item.Rack
+                                        </td>
+                                        <td>
+                                            @item.ItemName
+                                        </td>
+                                        <td contenteditable="true" id="@("rc"+x)">
+                                            @item.Amount
+                                        </td>
+                                        <td>
+                                            @item.EmployeeName
+                                        </td>
+                                        <td>
+                                            @item.UpdateTime
+                                        </td>
+                                    </tr>
+                                    
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 ">
+        <div class="pull-right">
+            <button type="button" class="btn btn-block" id="goconf"><i class="fa fa-check fa-5x"></i></button>
+
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+        $("#goconf").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "WareHouseEdit",
+                data: {
+                    rc1: $("#rc1").text().trim(),
+                    rc2: $("#rc2").text().trim(),
+                    rc3: $("#rc3").text().trim(),
+                    rc4: $("#rc4").text().trim(),
+                    rc5: $("#rc5").text().trim(),
+                    rc6: $("#rc6").text().trim(),
+                    rc7: $("#rc7").text().trim(),
+                    rc8: $("#rc8").text().trim(),
+                    rc9: $("#rc9").text().trim(),
+                    rc10: $("#rc10").text().trim(),
+                    rc11: $("#rc11").text().trim(),
+                    rc12: $("#rc12").text().trim(),
+                    rc13: $("#rc13").text().trim(),
+                    rc14: $("#rc14").text().trim(),
+                    rc15: $("#rc15").text().trim(),
+                    rc16: $("#rc16").text().trim()
+                },
+                success: function () {
+                    window.location.reload();
+                }
+            })
+
+        })
+    })
+    
+    
+
+</script>

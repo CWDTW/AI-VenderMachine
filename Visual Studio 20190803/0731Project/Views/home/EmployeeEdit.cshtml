@@ -1,0 +1,340 @@
+﻿@model IEnumerable<_0731Project.Models.EmpDb>
+@{
+    ViewBag.Title = "EmployeeEdit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-12">
+        <!--    Hover Rows  -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2> <span class="fa fa-1x fa-edit">員工編輯</span></h2>
+            </div>
+            @*<div class="col-md-12">
+
+                </div>*@
+
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                @*<th>員編</th>*@
+                                <th>姓名</th>
+                                <th>帳號</th>
+                                <th>電話</th>
+                                <th>到職日</th>
+                                <th>性別</th>
+                                <th>生日</th>
+                                <th>信箱</th>
+                                <th>地址</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="tdhide">@item.EmployeeID</td>
+                                    <td>@item.EmployeeName</td>
+                                    <td>@item.Account</td>
+                                    <td class="tdhide">@item.PassWord</td>
+                                    <td>@item.PhoneNum</td>
+                                    <td>@item.AddDate</td>
+                                    <td>@item.Sex</td>
+                                    <td>@item.Birthday</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.Address</td>
+                                    <td class="tdhide">@item.Permission</td>
+                                </tr>
+
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-offset-12 pull-right">
+    <button class="badge" id="createemp"><i class="fa fa-5x fa-plus"></i></button>
+</div>
+
+
+@*員工修改*@
+<div class="createpopup" id="editfor">
+    <form class="form-horizontal popupanimate popupmodal-content" method="post" action="">
+        <fieldset>
+            <legend class="text-center">修改員工</legend>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="ename">姓名</label>
+                <div class="col-md-4">
+                    <input id="eid" name="eid" type="text" class="tdhide" required readonly />
+                    <input id="ename" name="ename" type="text" class="form-control input-md" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="eacc">帳號</label>
+                <div class="col-md-4">
+                    <input id="eacc" name="eacc" type="text" class="form-control input-md" required readonly />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="epw">密碼</label>
+                <div class="col-md-4">
+                    <input id="epw" name="epw" type="text" class="form-control input-md" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="epho">電話號碼</label>
+                <div class="col-md-4">
+                    <input id="epho" name="epho" type="number" class="form-control input-md" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="eadd">到職日</label>
+                <div class="col-md-4">
+                    <input id="eadd" name="eadd" type="date" class="form-control input-md" readonly/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="esex">性別</label>
+                <div class="col-md-4">
+                    <select name="esex" required id="esex" class="selected form-control">
+                        <option value="M" selected id="MM">男</option>
+                        <option value="F" id="FF">女</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="ebir">生日</label>
+                <div class="col-md-4">
+                    <input id="ebir" name="ebir" type="date" class="form-control input-md" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="email">電子信箱</label>
+                <div class="col-md-4">
+                    <input id="email" name="email" type="email" class="form-control input-md" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="eaddr">住址</label>
+                <div class="col-md-4">
+                    <input id="eaddr" name="eaddr" type="text" class="form-control input-md" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="eper">權限</label>
+                <div class="col-md-4">
+                    <select name="eper" required id="eper" class="selected form-control">
+                        <option value="1" id="adm">管理者</option>
+                        <option value="0" id="nor">一般員工</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12 text-center">
+                    <span>@ViewBag.msg</span>
+                    <button type="submit" class="btn popupbtn btn-success" id="gogogo">送出</button>
+                    <button type="button" class="btn cancelbtn btn-warning" id="nonono">取消</button>
+                    <button type="button" class="btn btn-danger media-right calcelbtn" id="edel">刪除</button>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+</div>
+
+
+@*員工新增*@
+<div class="createpopup" id="createfor">
+    <form class="form-horizontal popupanimate popupmodal-content" method="post" action="@Url.Action("CreateEmp")">
+        <fieldset>
+            <!-- Form Name -->
+            <legend class="text-center">新加入員工</legend>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="eename">姓名</label>
+                <div class="col-md-4">
+                    <input id="eename" name="eename" type="text" class="form-control input-md" required />
+                </div>
+            </div>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="eeacc">帳號</label>
+                <div class="col-md-4">
+                    <input id="eeacc" name="eeacc" type="text" class="form-control input-md" required />
+                </div>
+            </div>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="eepass">密碼</label>
+                <div class="col-md-4">
+                    <input id="eepass" name="eepass" type="text" class="form-control input-md" required />
+                </div>
+            </div>
+            <!--性別-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="eesex">性別</label>
+                <div class="col-md-4">
+                    <select name="eesex" required id="eesex" class="selected form-control">
+                        <option value="M" selected>男</option>
+                        <option value="F">女</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="eebir">生日</label>
+                <div class="col-md-4">
+                    <input id="eebir" name="eebir" type="text" class="form-control input-md" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="eeaddr">住址</label>
+                <div class="col-md-4">
+                    <input id="eeadd" name="eeaddr" type="text" class="form-control input-md" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="eemail">電子信箱</label>
+                <div class="col-md-4">
+                    <input id="eemail" name="eemail" type="email" class="form-control input-md" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="eepho">電話號碼</label>
+                <div class="col-md-4">
+                    <input id="eepho" name="eepho" type="number" class="form-control input-md" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="eeper">權限</label>
+                <div class="col-md-4">
+                    <select name="eeper" required id="eeper" class="selected form-control">
+                        <option value="1" >管理者</option>
+                        <option value="0" selected >一般員工</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12 text-center">
+                    <button id="okaygo" class="btn btn-success">送出</button>
+                    <button id="nonogo" class="btn btn-danger cancelbtn">取消</button>
+                </div>
+
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+
+
+
+<script>
+    $("#eebir").flatpickr({
+        enableTime: false,
+        dateFormat: "Y-m-d ",
+        maxDate: "today"
+    });
+
+    //$("#eadd").flatpickr({
+    //    enableTime: false,
+    //    dateFormat: "Y-m-d ",
+    //    allowInput: false,
+    //    maxDate: "today"
+    //});
+
+    $("#ebir").flatpickr({
+        enableTime: false,
+        dateFormat: "Y-m-d ",
+        maxDate: "today"
+    });
+    //點視窗外取消popup
+    $(document).ready(function () {
+        var modal1 = document.getElementById("editfor");
+        var modal2 = document.getElementById("createfor")
+        window.onclick = function (event) {
+            if (event.target == modal1 || event.target == modal2) {
+                //modal1.style.display = "none";
+                //modal2.style.display = "none";
+                //$("#editfor").css("display", "none");
+                //$("#createfor").css("display", "none");
+                window.location.reload();
+            }
+        };
+        //取消按鈕關閉popup
+        $(".cancelbtn").click(function () {
+            $("#editfor").css("display", "none");
+            $("#createfor").css("display", "none");
+        });
+        //編輯員工popup
+        $("td").click(function () {
+            //var x = $(this).parents("tr").children("td:first").text();
+            ////console.log(x);
+            $("#editfor").css("display", "table");
+        });
+        //新增員工popup
+        $("#createemp").click(function () {
+            $("#createfor").css("display", "block");
+        });
+
+        //編輯員工送至popup欄位
+        $("tr").click(function () {
+            var tableData = $(this).children("td").map(function () {
+                return $(this).text();
+            }).get();
+            //$("#aeid").attr("value", tableData[0]);
+            $("#eid").attr("value", tableData[0]);
+            $("#ename").attr("value", tableData[1]);
+            $("#eacc").attr("value", tableData[2]);
+            $("#epw").attr("value", tableData[3]);
+            $("#epho").attr("value", tableData[4].trim());
+            $("#eadd").attr("value", tableData[5].trim().replace(/\//g, '-'));
+            console.log(tableData[5].replace(/\//g, '-'));
+            if (tableData[6].trim() == "M") {
+                $("#MM").attr("selected", "selected");
+            } else if (tableData[6].trim() == "F") {
+                $("#FF").attr("selected", "selected");
+            }
+            $("#ebir").attr("value", tableData[7].trim().replace(/\//g, '-'));
+            $("#email").attr("value", tableData[8]);
+            $("#eaddr").attr("value", tableData[9]);
+            if (tableData[10].trim() == 1) {
+                $("#adm").attr("selected", "selected");
+            } else if (tableData[10].trim() == 0) {
+                $("#nor").attr("selected", "selected");
+            }
+            //刪除員工
+            $("#edel").click(function () {
+                //$("#conf").css("display", "block");
+                //改變確認和取消按鈕樣式
+                $("#gogogo").attr({
+                    "class": "btn btn-danger",
+                    "id": "confirmdel"
+                })
+                $("#nonono").attr({
+                    "class": "btn btn-success",
+                    "id": "nocancel"
+                })
+                $("#edel").hide();
+                $("#confirmdel").append("<span>確認刪除嗎?</span>");
+
+                $("#confirmdel").click(function () {
+                    $.ajax({
+                        //type: "POST",
+                        url: "EmployeeDelete",
+                        data: { eid: tableData[0] },
+                        success: function () {
+                            window.location.reload();
+                        }
+                    })
+                })
+                $("#nocancel").click(function () {
+                    window.location.reload();
+                })
+            })
+        });
+    });
+</script>

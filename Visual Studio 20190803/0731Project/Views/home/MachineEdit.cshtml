@@ -1,0 +1,159 @@
+﻿@model IEnumerable<_0731Project.Models.MachineStorageView>
+
+@{
+    ViewBag.Title = "MachineEdit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-12">
+        <!--    Hover Rows  -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2> <span class="fa fa-1x fa-desktop">機臺補貨</span></h2>
+            </div>
+        </div>
+    </div>
+    @*<div class="col-md-12">
+            <a href="#" class="btn-adn"><i class="fa fa-5x fa-plus"></i></a>
+        </div>*@
+    @*第一欄*@
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-hover " id="edit1">
+                        <thead>
+                            <tr>
+                                <th>機臺編號</th>
+                                <th>貨架編號</th>
+                                <th>商品名稱</th>
+                                <th>商品數量</th>
+                                <th>補貨人員</th>
+                                <th>最後補貨時間</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{ var x = 1;}
+                            @foreach (var item in Model)
+                            {
+                                if (Convert.ToInt32(item.Rack) <= 5)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.MachineId
+                                        </td>
+                                        <td>
+                                            @item.Rack
+                                        </td>
+                                        <td>
+                                            @item.ItemName
+                                        </td>
+                                        <td contenteditable="true" id="@("td"+x)">
+                                            @item.Amount
+                                        </td>
+                                        <td>
+                                            @item.EmployeeName
+                                        </td>
+                                        <td>
+                                            @item.UpdateTime
+                                        </td>
+                                    </tr>
+                                    x += 1;
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*第二欄*@
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-hover " id="edit2">
+                        <thead>
+                            <tr>
+                                <th>機臺編號</th>
+                                <th>貨架編號</th>
+                                <th>商品名稱</th>
+                                <th>商品數量</th>
+                                <th>補貨人員</th>
+                                <th>最後補貨時間</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                if (Convert.ToInt32(item.Rack) > 5 && Convert.ToInt32(item.Rack) <= 10)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.MachineId
+                                        </td>
+                                        <td>
+                                            @item.Rack
+                                        </td>
+                                        <td>
+                                            @item.ItemName
+                                        </td>
+                                        <td contenteditable="true" id="@("td"+x)">
+                                            @item.Amount
+                                        </td>
+                                        <td>
+                                            @item.EmployeeName
+                                        </td>
+                                        <td>
+                                            @item.UpdateTime
+                                        </td>
+                                    </tr>
+                                    x += 1;
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 ">
+        <div class="pull-right">
+            <button type="button" class="btn btn-block" id="goconf"><i class="fa fa-check fa-5x"></i></button>
+
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var x = $("#td1").text().trim();
+    console.log(x);
+    
+    $("#goconf").click(function () {
+        $.ajax({
+            type: "POST",
+            url: "MachineEdit",
+            data: {
+                td1: $("#td1").text().trim(),
+                td2: $("#td2").text().trim(),
+                td3: $("#td3").text().trim(),
+                td4: $("#td4").text().trim(),
+                td5: $("#td5").text().trim(),
+                td6: $("#td6").text().trim(),
+                td7: $("#td7").text().trim(),
+                td8: $("#td8").text().trim(),
+                td9: $("#td9").text().trim(),
+                td10: $("#td10").text().trim()
+            },
+            success: function () {
+                window.location.reload();
+            }
+        })
+        
+    })
+
+</script>

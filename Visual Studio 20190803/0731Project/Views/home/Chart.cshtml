@@ -1,0 +1,202 @@
+﻿
+@{
+    ViewBag.Title = "Chart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-8">
+            <h2>年銷售分析</h2>
+            <canvas id="myChart2"></canvas>
+        </div>
+        <div class="col-md-4">
+            <select id="single">
+                <optgroup selected="true" label="銷售日期">
+                    <option value="1">一個月</option>
+                    <option value="2">一禮拜</option>
+                </optgroup>
+            </select>
+            <h2>月銷售分析</h2>
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
+
+
+<script>
+    
+    var databar = [];  //數量
+    //canvas//畫布id
+    var ctx = document.getElementById('myChart2').getContext('2d');
+    var myBar = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],  //名稱
+            datasets: [{
+                //預設資料
+                data: databar,   //數量
+                backgroundColor: [
+                    "#eccc68",
+                    "#ffa502",
+                    "#ff7f50",
+                    "#ff6b81",
+                    "#ff6348",
+                    "#ff4757",
+                    "#7bed9f",
+                    "#2ed573",
+                    "#70a1ff",
+                    "#1e90ff",
+                    "#5352ed",
+                    "#3742fa"
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)'
+                ]
+            }],
+        },
+        options: {
+            legend: {
+                display: false
+            }
+        }
+    });
+
+    var labels = [];
+    var data = [];
+    //canvas//畫布id
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var mypie = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: labels,  //名稱
+            datasets: [{
+                //預設資料
+                data: data,   //數量
+                backgroundColor: [
+                    //資料顏色
+                    "#eccc68",
+                    "#ffa502",
+                    "#ff7f50",
+                    "#ff6b81",
+                    "#ff6348",
+                    "#ff4757",
+                    "#7bed9f",
+                    "#2ed573",
+                    "#70a1ff",
+                    "#1e90ff",
+                    "#5352ed",
+                    "#3742fa",
+                    "#6CD4FF"
+                ],
+                borderColor: [
+                    "#FFFFFF",
+                    "#FFFFFF",
+                    "#FFFFFF",
+                    "#FFFFFF",
+                    "#FFFFFF",
+                    "#FFFFFF",
+                    "#FFFFFF",
+                    "#FFFFFF",
+                    "#FFFFFF",
+                    "#FFFFFF",
+                    "#FFFFFF",
+                    "#FFFFFF",
+                    "#FFFFFF",
+                    "#FFFFFF"
+                ],
+            }]
+        },
+        options: {
+            tooltips: {
+                intersect: true
+            }
+        }
+    });
+
+    $(document).ready(function () {
+        fnLoadData();
+        function fnLoadData() {
+            var apiurl = "https://wisemachinewebapp.azurewebsites.net/api/Values/?md=1";
+            $.ajax({
+                url: apiurl,
+                type: 'GET',
+                success: function (cdata) {
+                    labels.length = 0
+                    data.length = 0
+                    for (var i = 0; i < cdata.length; i++) {
+                        labels[i] = cdata[i].ItemName;
+                        data[i] = cdata[i].quantitu;
+                    }
+                    mypie.update();
+                }
+            });
+        }
+    });
+
+
+    $(document).on("change", 'select#single', function () {
+
+        console.log($(this).val());
+        if ($(this).val() == '1') {
+            console.log(1);
+            var apiurl = "https://wisemachinewebapp.azurewebsites.net/api/Values/?md=1";
+        }
+        else if ($(this).val() == '2') {
+            console.log(2);
+            var apiurl = "https://wisemachinewebapp.azurewebsites.net/api/Values/?sd=1";
+        }
+        fnLoadData();
+        function fnLoadData() {
+            $.ajax({
+                url: apiurl,
+                type: 'GET',
+                success: function (cdata) {
+                    labels.length = 0
+                    data.length = 0
+                    for (var i = 0; i < cdata.length; i++) {
+                        labels[i] = cdata[i].ItemName;
+                        data[i] = cdata[i].quantitu;
+                    }
+                    mypie.update();
+                }
+            });
+        }
+    });
+
+    var apiurl = "https://wisemachinewebapp.azurewebsites.net/api/Values/?ad=1";
+    $(document).ready(function () {
+        fnLoadData();
+        function fnLoadData() {
+            $.ajax({
+                url: apiurl,
+                type: 'GET',
+                dataType: "json",
+                success: function (cdata) {
+                    databar.length = 0
+                    databar[0] = cdata[0].JAN;
+                    databar[1] = cdata[0].FEB;
+                    databar[2] = cdata[0].MAR;
+                    databar[3] = cdata[0].APR;
+                    databar[4] = cdata[0].MAY;
+                    databar[5] = cdata[0].JUN;
+                    databar[6] = cdata[0].JUL;
+                    databar[7] = cdata[0].AUG;
+                    databar[8] = cdata[0].SEP;
+                    databar[9] = cdata[0].OCT;
+                    databar[10] = cdata[0].NOV;
+                    databar[11] = cdata[0].DEC;
+                    myBar.update();
+                }
+            });
+        }
+    });
+
+
+</script>

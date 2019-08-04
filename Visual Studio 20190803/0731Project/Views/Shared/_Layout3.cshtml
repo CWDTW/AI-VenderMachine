@@ -1,0 +1,125 @@
+﻿
+<!DOCTYPE html>
+<html xmlns="https://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <title>後台管理系統</title>
+    <!-- BOOTSTRAP STYLES-->
+    <link href="~/assets/css/bootstrap.css" rel="stylesheet" />
+    <!-- FONTAWESOME STYLES-->
+    <!--    <link href="assets/css/font-awesome.css" rel="stylesheet" />-->
+    <link rel="stylesheet" href="~/assets/css/font-awesome.css">
+    <!--CUSTOM BASIC STYLES-->
+    <link href="~/assets/css/basic.css" rel="stylesheet" />
+    <!--CUSTOM MAIN STYLES-->
+    <link href="~/assets/css/custom.css" rel="stylesheet" />
+    <!-- GOOGLE FONTS-->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    @*Import Jquery*@
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+</head>
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">導覽列</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="header-right">
+                <a href="@Url.Action("Login")" class="btn btn-primary" title="更換使用者"><i class="fa fa-exchange fa-2x"></i></a>
+                <a href="@Url.Action("Login")" class="btn btn-danger" title="登出"><i class="fa fa-sign-out fa-2x"></i></a>
+            </div>
+        </nav>
+        <!-- /. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+                    <li>
+                        <div class="user-img-div">
+                            <img src="~/assets/img/user.png" class="img-thumbnail" />
+                            <div class="inner-text">
+                                @Session["Welcome"]
+                                <br />
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("MachineCondition")"><i class="fa fa-desktop "></i>機臺狀況</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("EmployeeCondition")"><i class="fa fa-address-card "></i>員工狀況</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("WareHouseCondition")"><i class="fa fa-truck "></i>倉庫管理</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper">
+            <div id="page-inner">
+                <!-- /. ROW  -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="main-box mb-blue">
+                            <a href="/home/MachineCondition">
+                                <i class="fa fa-dashboard fa-5x"></i>
+                                <h5>機臺狀況</h5>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="main-box mb-dull">
+                            <a href="/home/EmployeeCondition">
+                                <i class="fa fa-outdent fa-5x"></i>
+                                <h5>員工狀況</h5>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="main-box mb-pink">
+                            <a href="/home/WareHouseCondition">
+                                <i class="fa fa-truck fa-5x"></i>
+                                <h5>倉庫管理</h5>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <!-- /. ROW  -->
+                <!-- /. ROW  -->
+                <!-- /.REVIEWS &  SLIDESHOW  -->
+                @RenderBody()
+                <!--/.Chat Panel End-->
+                <!--/.Row-->
+                <hr />
+                <!--/.ROW-->
+            </div>
+            <!-- /. PAGE INNER  -->
+        </div>
+        <!-- /. PAGE WRAPPER  -->
+    </div>
+    <!-- /. WRAPPER  -->
+    <div id="footer-sec">
+        &copy; 2014 YourCompany | Design By : <a href="http://www.binarytheme.com/" target="_blank">BinaryTheme.com</a>
+    </div>
+    <!-- /. FOOTER  -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    <!--    <script src="assets/js/jquery-1.10.2.js"></script>-->
+    @*<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>*@
+    <!-- BOOTSTRAP SCRIPTS -->
+    <script src="~/assets/js/bootstrap.js"></script>
+    <!-- METISMENU SCRIPTS -->
+    <script src="~/assets/js/jquery.metisMenu.js"></script>
+    <!-- CUSTOM SCRIPTS -->
+    <script src="~/assets/js/custom.js"></script>
+    <!--               -->
+</body>
+</html>

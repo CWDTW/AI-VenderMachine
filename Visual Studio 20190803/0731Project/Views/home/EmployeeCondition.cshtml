@@ -1,0 +1,146 @@
+﻿@model IEnumerable<_0731Project.Models.EmpDb>
+@{
+    ViewBag.Title = "EmployeeCondition";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    @*主頁開始*@
+    <div class="col-md-12">
+        <!--    Hover Rows  -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2> <span class="fa fa-1x fa-address-card">員工狀況</span></h2>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>員工編號</th>
+                                <th>姓名</th>
+                                <th>今日狀態</th>
+                                <th>目前進度</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+
+                                <tr>
+                                    <td>@item.EmployeeID</td>
+                                    <td>@item.EmployeeName</td>
+                                    @if (item.Assignment == 1)
+                                    {
+                                        <td><span class="label label-success">上班</span></td>
+                                    }
+                                    else
+                                    {
+                                        <td><span class="label label-default">請假</span></td>
+                                    }
+                                    @if (@item.MachineId == "0" & item.Assignment == 0)
+                                    {
+                                        <td><span class="label label-default">今日請假</span></td>
+                                    }
+                                    else if ((@item.MachineId == "0" || item.MachineId == " ") & item.Assignment == 1)
+                                    {
+                                        <td><span class="label label-default">未指派機臺</span></td>
+                                    }
+                                    else
+                                    {
+                                        <td>第 @item.MachineId 機臺補貨</td>
+                                    }
+                                    <td class="tdhide">@item.Account</td>
+                                </tr>
+
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="createpopup" id="id01">
+    <form class="form-horizontal popupanimate popupmodal-content" method="post" action="EmployeeCondition">
+        <fieldset>
+            <!-- Form Name -->
+            <legend class="text-center">員工今日狀況</legend>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="ename">姓名</label>
+                <div class="col-md-4">
+                    <input class="tdhide" type="text" name="eid" required id="eid" readonly>
+                    <input id="ename" name="ename" type="text" class="form-control input-md" required />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="eassi">請假</label>
+                <div class="col-md-4">
+                    @*<input class="popupinput assiinput" type="text" name="eassi" id="eassi" required>*@
+                    <select id="eassi" name="eassi">
+                        <option selected id="onon" value="1">上班</option>
+                        <option id="offoff" value="0">請假</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="emach">今日負責機臺</label>
+                <div class="col-md-4">
+                    <input class="popupinput machinput" type="number" name="emach" required id="emach" maxlength="1">
+                    <input class="tdhide accinput" type="text" name="eacc" required id="eacc">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12 text-center">
+                    <button type="submit" class="btn btn-success">送出</button>
+                    <button type="button" class="btn btn-default calcelbtn">取消</button>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        var modal = document.getElementById("id01");
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+        $(".cancelbtn").click(function () {
+            $("#id01").css("display", "none");
+        })
+        $("td").click(function () {
+            //var x = $(this).parents("tr").children("td:first").text();
+            ////console.log(x);
+            $("#id01").css("display", "table");
+        });
+
+        $("tr").click(function () {
+            var tableData = $(this).children("td").map(function () {
+                return $(this).text();
+            }).get();
+            $("#eid").attr("value", tableData[0]);
+            $("#ename").attr("value", tableData[1]);
+            if (tableData[2].trim() == 1) {
+                $("#onon").attr("selected", "selected");
+            } else if (tableData[2].trim() == 0) {
+                $("#offoff").attr("selected", "selected");
+            }
+            if (tableData[3].slice(2, 3) == "派" || tableData[3].slice(2, 3) == "請") {
+                $("#emach").attr("value", 0);
+            } else {
+                $("#emach").attr("value", tableData[3].slice(2, 3));
+            }
+            
+            $("#eacc").attr("value", tableData[4]);
+            console.log(tableData);
+        });
+    });
+</script>

@@ -1,0 +1,692 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WiseMachineModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="EmpDb">
+          <Key>
+            <PropertyRef Name="Account" />
+          </Key>
+          <Property Name="Account" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PassWord" Type="nvarchar" MaxLength="50" />
+          <Property Name="EmployeeID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EmployeeName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhoneNum" Type="nchar" MaxLength="15" />
+          <Property Name="Sex" Type="char" MaxLength="4" />
+          <Property Name="Email" Type="varchar" MaxLength="200" />
+          <Property Name="Address" Type="nvarchar" MaxLength="200" />
+          <Property Name="Birthday" Type="nvarchar" MaxLength="20" />
+          <Property Name="AddDate" Type="nvarchar" MaxLength="20" />
+          <Property Name="UpdateTime" Type="nvarchar" MaxLength="20" />
+          <Property Name="Assignment" Type="int" />
+          <Property Name="MachineId" Type="varchar" MaxLength="50" />
+          <Property Name="Permission" Type="int" />
+        </EntityType>
+        <EntityType Name="ItemDb">
+          <Key>
+            <PropertyRef Name="ItemId" />
+          </Key>
+          <Property Name="ItemId" Type="int" Nullable="false" />
+          <Property Name="ItemImg" Type="nvarchar" MaxLength="200" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ItemUnitPrice" Type="int" />
+          <Property Name="Class" Type="nvarchar" MaxLength="10" />
+          <Property Name="Calorles" Type="nvarchar" MaxLength="50" />
+          <Property Name="Protein" Type="nvarchar" MaxLength="50" />
+          <Property Name="Carbohydrate" Type="nvarchar" MaxLength="50" />
+          <Property Name="Fat" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sugars" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sodium" Type="nvarchar" MaxLength="50" />
+          <Property Name="Capacity" Type="nvarchar" MaxLength="5" />
+          <Property Name="Slogan1" Type="nvarchar" MaxLength="10" />
+          <Property Name="Slogan2" Type="nvarchar" MaxLength="10" />
+          <Property Name="PayUrl" Type="nvarchar" MaxLength="200" />
+          <Property Name="ImgUrl" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MachineDb">
+          <Key>
+            <PropertyRef Name="MachineId" />
+          </Key>
+          <Property Name="MachineId" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Location" Type="nvarchar" MaxLength="200" />
+          <Property Name="AddDate" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="MachineStorageDb">
+          <Key>
+            <PropertyRef Name="SerialNumber" />
+          </Key>
+          <Property Name="SerialNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MachineId" Type="varchar" MaxLength="50" />
+          <Property Name="EmployeeId" Type="varchar" MaxLength="50" />
+          <Property Name="ItemId" Type="int" />
+          <Property Name="Rack" Type="varchar" MaxLength="50" />
+          <Property Name="Amount" Type="varchar" MaxLength="50" />
+          <Property Name="UpdateTime" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SalesStatisticsDb">
+          <Key>
+            <PropertyRef Name="SerialNumber" />
+          </Key>
+          <Property Name="SerialNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MachineId" Type="varchar" MaxLength="50" />
+          <Property Name="ItemId" Type="int" />
+          <Property Name="UpdateTime" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="WareHouseDb">
+          <Key>
+            <PropertyRef Name="WareHouseId" />
+          </Key>
+          <Property Name="WareHouseId" Type="int" Nullable="false" />
+          <Property Name="Location" Type="nvarchar" MaxLength="200" />
+          <Property Name="AddDate" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="WareHouseStorageDb">
+          <Key>
+            <PropertyRef Name="SerialNumber" />
+          </Key>
+          <Property Name="SerialNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WareHouseId" Type="varchar" MaxLength="50" />
+          <Property Name="EmployeeId" Type="varchar" MaxLength="50" />
+          <Property Name="ItemId" Type="int" />
+          <Property Name="Rack" Type="varchar" MaxLength="50" />
+          <Property Name="Amount" Type="varchar" MaxLength="50" />
+          <Property Name="UpdateTime" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'WiseMachine.dbo.alltable' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+        <EntityType Name="alltable">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ItemUnitPrice" Type="int" />
+          <Property Name="Class" Type="nvarchar" MaxLength="10" />
+          <Property Name="UpdateTime" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'WiseMachine.dbo.api2019' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+        <EntityType Name="api2019">
+          <Key>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <PropertyRef Name="ppp" />
+          </Key>
+          <Property Name="ppp" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="JAN" Type="int" Nullable="false" />
+          <Property Name="FEB" Type="int" Nullable="false" />
+          <Property Name="MAR" Type="int" Nullable="false" />
+          <Property Name="APR" Type="int" Nullable="false" />
+          <Property Name="MAY" Type="int" Nullable="false" />
+          <Property Name="JUN" Type="int" Nullable="false" />
+          <Property Name="JUL" Type="int" Nullable="false" />
+          <Property Name="AUG" Type="int" Nullable="false" />
+          <Property Name="SEP" Type="int" Nullable="false" />
+          <Property Name="OCT" Type="int" Nullable="false" />
+          <Property Name="NOV" Type="int" Nullable="false" />
+          <Property Name="DEC" Type="int" Nullable="false" />
+        </EntityType>
+        <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'WiseMachine.dbo.LastMonthApi' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+        <EntityType Name="LastMonthApi">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Quantity" Type="int" />
+        </EntityType>
+        <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'WiseMachine.dbo.LastSenvenDaysApi' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+        <EntityType Name="LastSenvenDaysApi">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Quantity" Type="int" />
+        </EntityType>
+        <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'WiseMachine.dbo.MachineStorageView' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+        <EntityType Name="MachineStorageView">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="MachineId" Type="varchar" MaxLength="50" />
+          <Property Name="Rack" Type="varchar" MaxLength="2" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Amount" Type="varchar" MaxLength="50" />
+          <Property Name="EmployeeName" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateTime" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'WiseMachine.dbo.WareHouseStorageView' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+        <EntityType Name="WareHouseStorageView">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="WareHouseId" Type="varchar" MaxLength="50" />
+          <Property Name="Rack" Type="varchar" MaxLength="50" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Amount" Type="varchar" MaxLength="50" />
+          <Property Name="EmployeeName" Type="nvarchar" MaxLength="50" />
+          <Property Name="UpdateTime" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--產生期間發現錯誤:
+警告 6002: 資料表/檢視 'WiseMachine.sys.database_firewall_rules' 未定義主索引鍵。已推斷此索引鍵，並將定義建立成唯讀的資料表/檢視。-->
+        <EntityType Name="database_firewall_rules">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="start_ip_address" />
+            <PropertyRef Name="end_ip_address" />
+            <PropertyRef Name="create_date" />
+            <PropertyRef Name="modify_date" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="start_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="end_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="create_date" Type="datetime" Nullable="false" />
+          <Property Name="modify_date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="WiseMachineModelStoreContainer">
+          <EntitySet Name="EmpDb" EntityType="Self.EmpDb" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemDb" EntityType="Self.ItemDb" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MachineDb" EntityType="Self.MachineDb" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MachineStorageDb" EntityType="Self.MachineStorageDb" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SalesStatisticsDb" EntityType="Self.SalesStatisticsDb" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WareHouseDb" EntityType="Self.WareHouseDb" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WareHouseStorageDb" EntityType="Self.WareHouseStorageDb" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="alltable" EntityType="Self.alltable" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [alltable].[ID] AS [ID], 
+    [alltable].[ItemName] AS [ItemName], 
+    [alltable].[ItemUnitPrice] AS [ItemUnitPrice], 
+    [alltable].[Class] AS [Class], 
+    [alltable].[UpdateTime] AS [UpdateTime]
+    FROM [dbo].[alltable] AS [alltable]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="api2019" EntityType="Self.api2019" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [api2019].[ppp] AS [ppp], 
+    [api2019].[JAN] AS [JAN], 
+    [api2019].[FEB] AS [FEB], 
+    [api2019].[MAR] AS [MAR], 
+    [api2019].[APR] AS [APR], 
+    [api2019].[MAY] AS [MAY], 
+    [api2019].[JUN] AS [JUN], 
+    [api2019].[JUL] AS [JUL], 
+    [api2019].[AUG] AS [AUG], 
+    [api2019].[SEP] AS [SEP], 
+    [api2019].[OCT] AS [OCT], 
+    [api2019].[NOV] AS [NOV], 
+    [api2019].[DEC] AS [DEC]
+    FROM [dbo].[api2019] AS [api2019]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="LastMonthApi" EntityType="Self.LastMonthApi" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [LastMonthApi].[ID] AS [ID], 
+    [LastMonthApi].[ItemName] AS [ItemName], 
+    [LastMonthApi].[Quantity] AS [Quantity]
+    FROM [dbo].[LastMonthApi] AS [LastMonthApi]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="LastSenvenDaysApi" EntityType="Self.LastSenvenDaysApi" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [LastSenvenDaysApi].[ID] AS [ID], 
+    [LastSenvenDaysApi].[ItemName] AS [ItemName], 
+    [LastSenvenDaysApi].[Quantity] AS [Quantity]
+    FROM [dbo].[LastSenvenDaysApi] AS [LastSenvenDaysApi]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="MachineStorageView" EntityType="Self.MachineStorageView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [MachineStorageView].[ID] AS [ID], 
+    [MachineStorageView].[MachineId] AS [MachineId], 
+    [MachineStorageView].[Rack] AS [Rack], 
+    [MachineStorageView].[ItemName] AS [ItemName], 
+    [MachineStorageView].[Amount] AS [Amount], 
+    [MachineStorageView].[EmployeeName] AS [EmployeeName], 
+    [MachineStorageView].[UpdateTime] AS [UpdateTime]
+    FROM [dbo].[MachineStorageView] AS [MachineStorageView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="WareHouseStorageView" EntityType="Self.WareHouseStorageView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [WareHouseStorageView].[ID] AS [ID], 
+    [WareHouseStorageView].[WareHouseId] AS [WareHouseId], 
+    [WareHouseStorageView].[Rack] AS [Rack], 
+    [WareHouseStorageView].[ItemName] AS [ItemName], 
+    [WareHouseStorageView].[Amount] AS [Amount], 
+    [WareHouseStorageView].[EmployeeName] AS [EmployeeName], 
+    [WareHouseStorageView].[UpdateTime] AS [UpdateTime]
+    FROM [dbo].[WareHouseStorageView] AS [WareHouseStorageView]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
+            <DefiningQuery>SELECT 
+    [database_firewall_rules].[id] AS [id], 
+    [database_firewall_rules].[name] AS [name], 
+    [database_firewall_rules].[start_ip_address] AS [start_ip_address], 
+    [database_firewall_rules].[end_ip_address] AS [end_ip_address], 
+    [database_firewall_rules].[create_date] AS [create_date], 
+    [database_firewall_rules].[modify_date] AS [modify_date]
+    FROM [sys].[database_firewall_rules] AS [database_firewall_rules]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WiseMachineModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="EmpDb">
+          <Key>
+            <PropertyRef Name="Account" />
+          </Key>
+          <Property Name="Account" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PassWord" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EmployeeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNum" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+          <Property Name="Sex" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Birthday" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="AddDate" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateTime" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Assignment" Type="Int32" />
+          <Property Name="MachineId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Permission" Type="Int32" />
+        </EntityType>
+        <EntityType Name="ItemDb">
+          <Key>
+            <PropertyRef Name="ItemId" />
+          </Key>
+          <Property Name="ItemId" Type="Int32" Nullable="false" />
+          <Property Name="ItemImg" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ItemName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ItemUnitPrice" Type="Int32" />
+          <Property Name="Class" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Calorles" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Protein" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Carbohydrate" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Fat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sugars" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sodium" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Capacity" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Slogan1" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Slogan2" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="PayUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ImgUrl" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="MachineDb">
+          <Key>
+            <PropertyRef Name="MachineId" />
+          </Key>
+          <Property Name="MachineId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Location" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="AddDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="MachineStorageDb">
+          <Key>
+            <PropertyRef Name="SerialNumber" />
+          </Key>
+          <Property Name="SerialNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MachineId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ItemId" Type="Int32" />
+          <Property Name="Rack" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Amount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SalesStatisticsDb">
+          <Key>
+            <PropertyRef Name="SerialNumber" />
+          </Key>
+          <Property Name="SerialNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MachineId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ItemId" Type="Int32" />
+          <Property Name="UpdateTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="WareHouseDb">
+          <Key>
+            <PropertyRef Name="WareHouseId" />
+          </Key>
+          <Property Name="WareHouseId" Type="Int32" Nullable="false" />
+          <Property Name="Location" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="AddDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="WareHouseStorageDb">
+          <Key>
+            <PropertyRef Name="SerialNumber" />
+          </Key>
+          <Property Name="SerialNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WareHouseId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ItemId" Type="Int32" />
+          <Property Name="Rack" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Amount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="api2019">
+          <Key>
+            <PropertyRef Name="ppp" />
+          </Key>
+          <Property Name="ppp" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="JAN" Type="Int32" Nullable="false" />
+          <Property Name="FEB" Type="Int32" Nullable="false" />
+          <Property Name="MAR" Type="Int32" Nullable="false" />
+          <Property Name="APR" Type="Int32" Nullable="false" />
+          <Property Name="MAY" Type="Int32" Nullable="false" />
+          <Property Name="JUN" Type="Int32" Nullable="false" />
+          <Property Name="JUL" Type="Int32" Nullable="false" />
+          <Property Name="AUG" Type="Int32" Nullable="false" />
+          <Property Name="SEP" Type="Int32" Nullable="false" />
+          <Property Name="OCT" Type="Int32" Nullable="false" />
+          <Property Name="NOV" Type="Int32" Nullable="false" />
+          <Property Name="DEC" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="MachineStorageView">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="MachineId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Rack" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="ItemName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="WareHouseStorageView">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="WareHouseId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Rack" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ItemName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Amount" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="database_firewall_rules">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+            <PropertyRef Name="start_ip_address" />
+            <PropertyRef Name="end_ip_address" />
+            <PropertyRef Name="create_date" />
+            <PropertyRef Name="modify_date" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="start_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="end_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityContainer Name="WiseMachineEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="EmpDb" EntityType="Self.EmpDb" />
+          <EntitySet Name="ItemDb" EntityType="Self.ItemDb" />
+          <EntitySet Name="MachineDb" EntityType="Self.MachineDb" />
+          <EntitySet Name="MachineStorageDb" EntityType="Self.MachineStorageDb" />
+          <EntitySet Name="SalesStatisticsDb" EntityType="Self.SalesStatisticsDb" />
+          <EntitySet Name="WareHouseDb" EntityType="Self.WareHouseDb" />
+          <EntitySet Name="WareHouseStorageDb" EntityType="Self.WareHouseStorageDb" />
+          <EntitySet Name="api2019" EntityType="Self.api2019" />
+          <EntitySet Name="MachineStorageView" EntityType="Self.MachineStorageView" />
+          <EntitySet Name="WareHouseStorageView" EntityType="Self.WareHouseStorageView" />
+          <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" />
+          <EntitySet Name="alltable" EntityType="WiseMachineModel.alltable" />
+          <EntitySet Name="LastMonthApi" EntityType="WiseMachineModel.LastMonthApi" />
+          <EntitySet Name="LastSenvenDaysApi" EntityType="WiseMachineModel.LastSenvenDaysApi" />
+        </EntityContainer>
+        <EntityType Name="alltable">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ItemName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ItemUnitPrice" Type="Int32" />
+          <Property Name="Class" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="UpdateTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="LastMonthApi">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ItemName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Int32" />
+        </EntityType>
+        <EntityType Name="LastSenvenDaysApi">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ItemName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WiseMachineModelStoreContainer" CdmEntityContainer="WiseMachineEntities">
+          <EntitySetMapping Name="EmpDb">
+            <EntityTypeMapping TypeName="WiseMachineModel.EmpDb">
+              <MappingFragment StoreEntitySet="EmpDb">
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="PassWord" ColumnName="PassWord" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="PhoneNum" ColumnName="PhoneNum" />
+                <ScalarProperty Name="Sex" ColumnName="Sex" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="Assignment" ColumnName="Assignment" />
+                <ScalarProperty Name="MachineId" ColumnName="MachineId" />
+                <ScalarProperty Name="Permission" ColumnName="Permission" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemDb">
+            <EntityTypeMapping TypeName="WiseMachineModel.ItemDb">
+              <MappingFragment StoreEntitySet="ItemDb">
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="ItemImg" ColumnName="ItemImg" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="ItemUnitPrice" ColumnName="ItemUnitPrice" />
+                <ScalarProperty Name="Class" ColumnName="Class" />
+                <ScalarProperty Name="Calorles" ColumnName="Calorles" />
+                <ScalarProperty Name="Protein" ColumnName="Protein" />
+                <ScalarProperty Name="Carbohydrate" ColumnName="Carbohydrate" />
+                <ScalarProperty Name="Fat" ColumnName="Fat" />
+                <ScalarProperty Name="Sugars" ColumnName="Sugars" />
+                <ScalarProperty Name="Sodium" ColumnName="Sodium" />
+                <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+                <ScalarProperty Name="Slogan1" ColumnName="Slogan1" />
+                <ScalarProperty Name="Slogan2" ColumnName="Slogan2" />
+                <ScalarProperty Name="PayUrl" ColumnName="PayUrl" />
+                <ScalarProperty Name="ImgUrl" ColumnName="ImgUrl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MachineDb">
+            <EntityTypeMapping TypeName="WiseMachineModel.MachineDb">
+              <MappingFragment StoreEntitySet="MachineDb">
+                <ScalarProperty Name="MachineId" ColumnName="MachineId" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MachineStorageDb">
+            <EntityTypeMapping TypeName="WiseMachineModel.MachineStorageDb">
+              <MappingFragment StoreEntitySet="MachineStorageDb">
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="MachineId" ColumnName="MachineId" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="Rack" ColumnName="Rack" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SalesStatisticsDb">
+            <EntityTypeMapping TypeName="WiseMachineModel.SalesStatisticsDb">
+              <MappingFragment StoreEntitySet="SalesStatisticsDb">
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="MachineId" ColumnName="MachineId" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WareHouseDb">
+            <EntityTypeMapping TypeName="WiseMachineModel.WareHouseDb">
+              <MappingFragment StoreEntitySet="WareHouseDb">
+                <ScalarProperty Name="WareHouseId" ColumnName="WareHouseId" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="AddDate" ColumnName="AddDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WareHouseStorageDb">
+            <EntityTypeMapping TypeName="WiseMachineModel.WareHouseStorageDb">
+              <MappingFragment StoreEntitySet="WareHouseStorageDb">
+                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+                <ScalarProperty Name="WareHouseId" ColumnName="WareHouseId" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="Rack" ColumnName="Rack" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="api2019">
+            <EntityTypeMapping TypeName="WiseMachineModel.api2019">
+              <MappingFragment StoreEntitySet="api2019">
+                <ScalarProperty Name="ppp" ColumnName="ppp" />
+                <ScalarProperty Name="JAN" ColumnName="JAN" />
+                <ScalarProperty Name="FEB" ColumnName="FEB" />
+                <ScalarProperty Name="MAR" ColumnName="MAR" />
+                <ScalarProperty Name="APR" ColumnName="APR" />
+                <ScalarProperty Name="MAY" ColumnName="MAY" />
+                <ScalarProperty Name="JUN" ColumnName="JUN" />
+                <ScalarProperty Name="JUL" ColumnName="JUL" />
+                <ScalarProperty Name="AUG" ColumnName="AUG" />
+                <ScalarProperty Name="SEP" ColumnName="SEP" />
+                <ScalarProperty Name="OCT" ColumnName="OCT" />
+                <ScalarProperty Name="NOV" ColumnName="NOV" />
+                <ScalarProperty Name="DEC" ColumnName="DEC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MachineStorageView">
+            <EntityTypeMapping TypeName="WiseMachineModel.MachineStorageView">
+              <MappingFragment StoreEntitySet="MachineStorageView">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="MachineId" ColumnName="MachineId" />
+                <ScalarProperty Name="Rack" ColumnName="Rack" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WareHouseStorageView">
+            <EntityTypeMapping TypeName="WiseMachineModel.WareHouseStorageView">
+              <MappingFragment StoreEntitySet="WareHouseStorageView">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="WareHouseId" ColumnName="WareHouseId" />
+                <ScalarProperty Name="Rack" ColumnName="Rack" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="database_firewall_rules">
+            <EntityTypeMapping TypeName="WiseMachineModel.database_firewall_rules">
+              <MappingFragment StoreEntitySet="database_firewall_rules">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="start_ip_address" ColumnName="start_ip_address" />
+                <ScalarProperty Name="end_ip_address" ColumnName="end_ip_address" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="alltable">
+            <EntityTypeMapping TypeName="WiseMachineModel.alltable">
+              <MappingFragment StoreEntitySet="alltable">
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
+                <ScalarProperty Name="Class" ColumnName="Class" />
+                <ScalarProperty Name="ItemUnitPrice" ColumnName="ItemUnitPrice" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LastMonthApi">
+            <EntityTypeMapping TypeName="WiseMachineModel.LastMonthApi">
+              <MappingFragment StoreEntitySet="LastMonthApi">
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LastSenvenDaysApi">
+            <EntityTypeMapping TypeName="WiseMachineModel.LastSenvenDaysApi">
+              <MappingFragment StoreEntitySet="LastSenvenDaysApi">
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

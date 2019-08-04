@@ -1,0 +1,443 @@
+﻿@model IEnumerable<_0731Project.Models.ItemDb>
+@{
+    ViewBag.Title = "EmployeeEdit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-md-12">
+        <!--    Hover Rows  -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2> <span class="fa fa-1x fa-edit">商品編輯</span></h2>
+            </div>
+            <div class="col-md-12">
+                <label for="sd" class="sd1">飲料</label>
+                <input type="radio" class="radio radio-inline sd1" value="飲料" checked="checked" id="sd" name="iclass1" />
+
+                <label for="ck" class="ck1">餅乾</label>
+                <input type="radio" class="radio radio-inline ck1" id="ck" name="iclass1" />
+
+            </div>
+            <div class="col-md-12" id="softdrinks">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    @*<th>商品編號</th>*@
+                                    <th>名稱</th>
+                                    <th>圖片</th>
+                                    <th>售價</th>
+                                    <th>類別</th>
+                                    <th>容量</th>
+                                    <th>卡路里</th>
+                                    <th>蛋白質</th>
+                                    <th>碳水化合物</th>
+                                    <th>脂肪</th>
+                                    <th>糖份</th>
+                                    <th>鈉含量</th>
+                                    <th>標語1</th>
+                                    <th>標語2</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var item in Model.Where(m => m.Class == "飲料"))
+                                {
+                                    <tr>
+                                        <td class="tdhide">@item.ItemId</td>
+                                        <td>@item.ItemName</td>
+                                        <td><img src="~/images/@item.ItemImg"  class="table-responsive"/></td>
+                                        <td>@item.ItemUnitPrice</td>
+                                        <td>@item.Class</td>
+                                        <td>@item.Capacity</td>
+                                        <td>@item.Calorles</td>
+                                        <td>@item.Protein</td>
+                                        <td>@item.Carbohydrate</td>
+                                        <td>@item.Fat</td>
+                                        <td>@item.Sugars</td>
+                                        <td>@item.Sodium</td>
+                                        <td>@item.Slogan1</td>
+                                        <td>@item.Slogan2</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 tdhide" id="cookies">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    @*<th>商品編號</th>*@
+                                    <th>名稱</th>
+                                    <th>圖片</th>
+                                    <th>售價</th>
+                                    <th>類別</th>
+                                    <th>容量</th>
+                                    <th>卡路里</th>
+                                    <th>蛋白質</th>
+                                    <th>碳水化合物</th>
+                                    <th>脂肪</th>
+                                    <th>糖份</th>
+                                    <th>鈉含量</th>
+                                    <th>標語1</th>
+                                    <th>標語2</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Where(m => m.Class == "餅乾"))
+                                {
+                                    <tr>
+                                        <td class="tdhide">@item.ItemId</td>
+                                        <td>@item.ItemName</td>
+                                        <td><img src="~/images/@item.ItemImg" /></td>
+                                        <td>@item.ItemUnitPrice</td>
+                                        <td>@item.Class</td>
+                                        <td>@item.Capacity</td>
+                                        <td>@item.Calorles</td>
+                                        <td>@item.Protein</td>
+                                        <td>@item.Carbohydrate</td>
+                                        <td>@item.Fat</td>
+                                        <td>@item.Sugars</td>
+                                        <td>@item.Sodium</td>
+                                        <td>@item.Slogan1</td>
+                                        <td>@item.Slogan2</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-offset-12 pull-right">
+    <button class="badge" id="createemp"><i class="fa fa-5x fa-plus"></i></button>
+</div>
+
+
+@*商品修改*@
+<div class="popupmodal" id="editfor"> 
+    <form class="form-horizontal popupanimate popupmodal-content table-responsive" method="post" action="">
+        <fieldset>
+            <legend class="text-center">修改商品</legend>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="iname">商品名稱</label>
+                <div class="col-md-4">
+                    <input id="iname" name="iname" type="text" class="form-control input-md" readonly />
+                    <input id="iid" name="iid" type="text" class="tdhide" readonly />
+                </div>
+            </div>
+            @*<div class="form-group">
+                <label class="col-md-4 control-label" for="iimg">圖片</label>
+                <div class="col-md-4">
+                    <input id="iimg" name="iimg" type="file" class="form-control input-group-sm" required />
+                </div>
+            </div>*@
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="iprice">售價</label>
+                <div class="col-md-4">
+                    <input id="iprice" name="iprice" type="number" class="form-control input-md" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="iclass">類別</label>
+                <div class="col-md-4">
+                    <select name="iclass" required id="iclass" class="selected form-control">
+                        <option value="飲料" selected>飲料</option>
+                        <option value="餅乾">餅乾</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="icap">容量</label>
+                <div class="col-md-4">
+                    <input id="icap" name="icap" type="number" class="form-control input-md" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="ical">卡路里</label>
+                <div class="col-md-4">
+                    <input id="ical" name="ical" type="number" class="form-control input-md" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="iprot">蛋白質</label>
+                <div class="col-md-4">
+                    <input id="iprot" name="iprot" type="number" class="form-control input-md" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="icar">碳水化合物</label>
+                <div class="col-md-4">
+                    <input id="icar" name="icar" type="number" class="form-control input-md" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="ifat">脂肪</label>
+                <div class="col-md-4">
+                    <input id="ifat" name="ifat" type="number" class="form-control input-md" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="isug">糖份</label>
+                <div class="col-md-4">
+                    <input id="isug" name="isug" type="number" class="form-control input-md" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="isod">鈉含量</label>
+                <div class="col-md-4">
+                    <input id="isod" name="isod" type="number" class="form-control input-md" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="islog1">標語1</label>
+                <div class="col-md-4">
+                    <input id="islog1" name="islog1" type="text" class="form-control input-md" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="islog2">標語2</label>
+                <div class="col-md-4">
+                    <input id="islog2" name="islog2" type="text" class="form-control input-md" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12 text-center">
+                    <button type="submit" id="gogogo" class="btn btn-success">送出</button>
+                    <button type="button" id="nonono" class="btn btn-danger cancelbtn">取消</button>
+                    <button type="button" class="btn btn-danger media-right calcelbtn" id="edel">刪除</button>
+                </div>
+
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+
+@*商品新增*@
+<div class="createpopup" id="createfor">
+    <form class="form-horizontal popupanimate createpopupmodal-content table-responsive" enctype="multipart/form-data" method="post" action="@Url.Action("CreateItem")">
+        <fieldset>
+            <!-- Form Name -->
+            <legend class="text-center">商品新增</legend>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="iiname">商品名稱</label>
+                <div class="col-md-4">
+                    <input id="iiname" name="iiname" type="text" class="form-control input-md" required />
+                </div>
+            </div>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="iiimg">圖片</label>
+                <div class="col-md-4">
+                    <input id="iiimg" name="iiimg" type="file" class="form-control input-md" required />
+                </div>
+            </div>
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="iiprice">售價</label>
+                <div class="col-md-4">
+                    <input id="iiprice" name="iiprice" type="number" class="form-control input-md" required />
+                </div>
+            </div>
+            <!--性別-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="iiclass">類別</label>
+                <div class="col-md-4">
+                    <select name="iiclass" required id="iiclass" class="selected form-control">
+                        <option value="飲料" selected>飲料</option>
+                        <option value="餅乾">餅乾</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="iicap">容量</label>
+                <div class="col-md-4">
+                    <input id="iicap" name="iicap" type="number" class="form-control input-md" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="iical">卡路里</label>
+                <div class="col-md-4">
+                    <input id="iical" name="iical" type="number" class="form-control input-md" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="iiprot">蛋白質</label>
+                <div class="col-md-4">
+                    <input id="iiprot" name="iiprot" type="number" class="form-control input-md" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="iicar">碳水化合物</label>
+                <div class="col-md-4">
+                    <input id="iicar" name="iicar" type="number" class="form-control input-md" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="iifat">脂肪</label>
+                <div class="col-md-4">
+                    <input id="iifat" name="iifat" type="number" class="form-control input-md" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="iisug">糖份</label>
+                <div class="col-md-4">
+                    <input id="iisug" name="iisug" type="number" class="form-control input-md" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="iisod">鈉含量</label>
+                <div class="col-md-4">
+                    <input id="iisod" name="iisod" type="number" class="form-control input-md" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="iislog1">標語1</label>
+                <div class="col-md-4">
+                    <input id="iislog1" name="iislog1" type="text" class="form-control input-md" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="iislog2">標語2</label>
+                <div class="col-md-4">
+                    <input id="iislog2" name="iislog2" type="text" class="form-control input-md" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-12 text-center">
+                    <button type="submit" id="okaygo" class="btn btn-success">送出</button>
+                    <button id="nonogo" class="btn btn-danger cancelbtn">取消</button>
+                </div>
+
+            </div>
+        </fieldset>
+    </form>
+</div>
+
+
+
+
+<script>
+    //$("#eebir").flatpickr({
+    //    enableTime: false,
+    //    dateFormat: "yyyy-MM-dd",
+    //    maxDate: "today"
+    //});
+
+    //$("#adddateinput").flatpickr({
+    //    enableTime: false,
+    //    dateFormat: "yyyy-MM-dd",
+    //    maxDate: "today"
+    //});
+
+    //$("#birthinput").flatpickr({
+    //    enableTime: false,
+    //    dateFormat: "yyyy-MM-dd",
+    //    maxDate: "today"
+    //});
+
+    $(document).ready(function () {
+        $(".ck1").click(function () {
+            $("#softdrinks").css("display","none");
+            $("#cookies").css("display", "block");
+            $("#sd").removeProp("checked");
+            $("#sd").removeClass("checked");
+            $("#sd").removeAttr("checked");
+        })
+        $(".sd1").click(function () {
+            $("#softdrinks").css("display", "block");
+            $("#cookies").css("display", "none");
+            $("#ck").removeProp("checked");
+            $("#ck").removeClass("checked");
+            $("#ck").removeAttr("checked");
+        })
+        //點視窗外取消popup
+        var modal1 = document.getElementById("editfor");
+        var modal2 = document.getElementById("createfor")
+        window.onclick = function (event) {
+            if (event.target == modal1 || event.target == modal2) {
+                //modal1.style.display = "none";
+                //modal2.style.display = "none";
+                //$("#editfor").css("display", "none");
+                //$("#createfor").css("display", "none");
+                window.location.reload();
+            }
+        };
+        //取消按鈕關閉popup
+        $(".cancelbtn").click(function () {
+            $("#editfor").css("display", "none");
+            $("#createfor").css("display", "none");
+        });
+        //編輯商品popup
+        $("td").click(function () {
+            //var x = $(this).parents("tr").children("td:first").text();
+            ////console.log(x);
+            $("#editfor").css("display", "table");
+        });
+        //新增商品popup
+        $("#createemp").click(function () {
+            $("#createfor").css("display", "block");
+        });
+
+        //編輯商品送至popup欄位
+        $("tr").click(function () {
+            var tableData = $(this).children("td").map(function () {
+                return $(this).text();
+            }).get();
+            //$("#aeid").attr("value", tableData[0]);
+            $("#iid").attr("value", tableData[0]);
+            $("#iname").attr("value", tableData[1].trim());
+            //$("#iimg").attr("src", "~/images"+tableData[2]);
+            $("#iprice").attr("value", tableData[3]);
+            $("#iclass").attr("value", tableData[4].trim());
+            $("#icap").attr("value", tableData[5]);
+            $("#ical").attr("value", tableData[6]);
+            $("#iprot").attr("value", tableData[7]);
+            $("#icar").attr("value", tableData[8]);
+            $("#ifat").attr("value", tableData[9]);
+            $("#isug").attr("value", tableData[10]);
+            $("#isod").attr("value", tableData[11]);
+            $("#islog1").attr("value", tableData[12]);
+            $("#islog2").attr("value", tableData[13]);
+            //刪除商品
+            $("#edel").click(function () {
+                //$("#conf").css("display", "block");
+                //改變確認和取消按鈕樣式
+                $("#gogogo").attr({
+                    "class": "btn btn-danger",
+                    "id": "confirmdel"
+                })
+                $("#nonono").attr({
+                    "class": "btn btn-success",
+                    "id": "nocancel"
+                })
+                $("#edel").hide();
+                $("#confirmdel").append("<span>確認刪除嗎?</span>");
+
+                $("#confirmdel").click(function () {
+                    $.ajax({
+                        type: "GET",
+                        url: "DeleteItem",
+                        data: { iid: tableData[0].trim() },
+                        success: function () {
+                            window.location.reload();
+                        }
+                    })
+                })
+                $("#nocancel").click(function () {
+                    window.location.reload();
+                })
+            })
+        });
+    });
+</script>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1665e9e261c144dfb1a724868bab2e4c" Name="Diagram1">
+        <EntityTypeShape EntityType="WiseMachineModel.EmpDb" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WiseMachineModel.ItemDb" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WiseMachineModel.MachineDb" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WiseMachineModel.MachineStorageDb" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WiseMachineModel.SalesStatisticsDb" Width="1.5" PointX="0.875" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WiseMachineModel.WareHouseDb" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WiseMachineModel.WareHouseStorageDb" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WiseMachineModel.api2019" Width="1.5" PointX="4.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WiseMachineModel.MachineStorageView" Width="1.5" PointX="11.625" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WiseMachineModel.WareHouseStorageView" Width="1.5" PointX="13.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WiseMachineModel.database_firewall_rules" Width="1.5" PointX="13.375" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="WiseMachineModel.alltable" Width="1.5" PointX="6.75" PointY="7.75" />
+        <EntityTypeShape EntityType="WiseMachineModel.LastMonthApi" Width="1.5" PointX="10.875" PointY="7.875" />
+        <EntityTypeShape EntityType="WiseMachineModel.LastSenvenDaysApi" Width="1.5" PointX="9" PointY="7.875" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
